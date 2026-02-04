@@ -29,7 +29,26 @@ for i, rep in enumerate(list_reparacao):
     rp["id_temp"] = i
 
     viatura_ident = f"{rep["viatura"]["marca"]} - {rep["viatura"]["modelo"]}"
+    if viatura_ident not in viaturas_globais:
+        viaturas_globais[viatura_ident] = {
+            "marca" : rep["viatura"]["marca"],
+            "modelo" : rep["viatura"]["modelo"],
+            "lista_reparacoes" : []
+        }
+    viaturas_globais[viatura_ident]["lista_reparacoes"].append(rep)
     
+    for interv in rep["intervencoes"]:
+        codigo = interv["codigo"]
+        if codigo not in intervencoes_globais:
+            intervencoes_globais[codigo] = {
+                "codigo" : codigo,
+                "nome" : interv["nome"],
+                "descricao" : interv["descricao"],
+                "lista_reparacoes" : []
+            }
+        intervencoes_globais[codigo]["lista_reparacoes"].append(rep)
+
+mk_dir("output")
     
 
 
