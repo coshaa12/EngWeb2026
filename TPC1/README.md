@@ -2,8 +2,6 @@
 
 **Data:** 05/02/2026
 
-**Autor:** Gonçalo Queirós Costa
-
 **UC:** Engenharia Web (2025/26) | 3Ano 2Semestre
 
 ## Autor
