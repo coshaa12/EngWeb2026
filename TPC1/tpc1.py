@@ -37,19 +37,43 @@ for i, rep in enumerate(list_reparacao):
         }
     viaturas_globais[viatura_ident]["lista_reparacoes"].append(rep)
     
-    for interv in rep["intervencoes"]:
-        codigo = interv["codigo"]
+    for interve in rep["intervencoes"]:
+        codigo = interve["codigo"]
         if codigo not in intervencoes_globais:
             intervencoes_globais[codigo] = {
                 "codigo" : codigo,
-                "nome" : interv["nome"],
-                "descricao" : interv["descricao"],
+                "nome" : interve["nome"],
+                "descricao" : interve["descricao"],
                 "lista_reparacoes" : []
             }
         intervencoes_globais[codigo]["lista_reparacoes"].append(rep)
 
 mk_dir("output")
     
+# ----------- Pagina Inicial ---- 
+
+index = f'''
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Consulta de Dados da Oficina</title>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <h1>Gestão de Oficina Automóvel</h1>
+        <h3>Dados Consultáveis:</h3>
+        <ul>
+            <li><a href="lista_reparacoes.html">Listagem Global das Reparações</a></li>
+            <li><a href="lista_intervencoes.html">Listagem por Tipo de Intervenção</a></li>
+            <li><a href="lista_viaturas.html">Listagem das marcas e modelos dos carros intervencionados</a></li>
+        </ul>
+    </body>
+</html>
+'''
+new_file("./output/index.html", index)
+
+
+# ------------ Pagina Listagem ----------
 
 
 
