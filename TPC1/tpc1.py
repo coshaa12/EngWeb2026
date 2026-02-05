@@ -26,7 +26,7 @@ intervencoes_globais = {}
 viaturas_globais = {}
 
 for i, rep in enumerate(list_reparacao):
-    rp["id_temp"] = i
+    rep["id_temp"] = i
 
     viatura_ident = f"{rep["viatura"]["marca"]} - {rep["viatura"]["modelo"]}"
     if viatura_ident not in viaturas_globais:
@@ -75,13 +75,114 @@ new_file("./output/index.html", index)
 
 # ------------ Pagina Listagem ----------
 
+tabela_reparacao = ""
+
+for rep in list_reparacao:
+    tabela_reparacao += f"""
+    <tr>
+        <td>{rep['data']}</td>
+        <td>{rep['nif']}</td>
+        <td>{rep['nome']}</td>
+        <td>{rep['viatura']['marca']}</td>
+        <td>{rep['viatura']['modelo']}</td>
+        <td>{rep['nr_intervencoes']}</td>
+        <td><a href="reparacao_{rep["id_temp"]}.html">Ver Detalhes</a></td>
+    </tr> 
+"""
+html_list_rep = f"""
+<html>
+    <head><title>Listagem Global das Reparações</title><meta charset="utf-8"/></head>
+    <body>
+        <h2>Listagem das Reparações</h2>
+        <table border="1">
+            <tr>
+                <th>Data</th>
+                <th>NIF</th>
+                <th>Cliente</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Nr Interv.</th>
+                <th>Link</th>
+            </tr>
+            {tabela_reparacao}
+        </table>
+        <p><a href="index.html">Voltar ao Início</a></p>
+    </body>
+</html>
+"""
+new_file("./output/lista_reparacoes.html", html_list_rep)
 
 
+# --------- Pagina Tipos Interv -----
+keys_interv = list(intervencoes_globais.keys())
+keys_interv.sort()
 
+tabela_interv = ""
+for cod in keys_interv:
+    dados_interv = intervencoes_globais[cod]
+    tabela_interv += f"""
+    <tr>
+        <td>{dados_interv["codigo"]}</td>
+        <td><a href="intervencao_{dados_interv["codigo"]}.html">{dados_interv["nome"]}</a></td>
+        <td>{dados_interv["descricao"]}</td>
+    </tr>
+    
+"""
 
+html_list_interv = f'''
+<html>
+    <head><title>Listagem por Tipo de Intervenção</title><meta charset="utf-8"/></head>
+    <body>
+        <h2>Tipos de Intervenção</h2>
+        <table border="1">
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+            </tr>
+            {tabela_interv}
+        </table>
+        <p><a href="index.html">Voltar ao Início</a></p>
+    </body>
+</html>
+'''
+new_file("./output/lista_intervencoes.html", html_list_interv)
 
+# --------- Pagina Marca-Modelo -----
+    
+keys_viaturas = list(viaturas_globais.keys())
+keys_viaturas.sort()
 
+tabela_viat = ""
+for chave in keys_viaturas:
+    dados_viat = viaturas_globais[chave]
+    nome_ficheiro = f"viatura_{dados_viat["marca"]}_{dados_viat["modelo"]}".replace(" ", "_")
+    
+    tabela_viat += f'''
+    <tr>
+        <td>{dados_viat["marca"]}</td>
+        <td>{dados_viat["modelo"]}</td>
+        <td>{len(dados_viat["lista_reparacoes"])}</td>
+        <td><a href="{nome_ficheiro}.html">Ver Carros</a></td>
+    </tr>
+    '''
 
-
-# --------- Pagina Inicial -----
-
+html_list_viat = f'''
+<html>
+    <head><title>Listagem das marcas e modelos dos carros intervencionados</title><meta charset="utf-8"/></head>
+    <body>
+        <h2>Marcas e Modelos Intervencionados</h2>
+        <table border="1">
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Qtd. Carros</th>
+                <th>Link</th>
+            </tr>
+            {tabela_viat}
+        </table>
+        <p><a href="index.html">Voltar ao Início</a></p>
+    </body>
+</html>
+'''
+new_file("./output/lista_viaturas.html", html_list_viat)
