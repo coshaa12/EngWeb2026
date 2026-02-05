@@ -74,7 +74,7 @@ new_file("./output/index.html", index)
 
 
 # ------------ Pagina Listagem ----------
-
+list_reparacao.sort(key=lambda x: x["nome"])
 tabela_reparacao = ""
 
 for rep in list_reparacao:
@@ -186,3 +186,78 @@ html_list_viat = f'''
 </html>
 '''
 new_file("./output/lista_viaturas.html", html_list_viat)
+
+# ---------- pagina reparacao ----- 
+
+for rep in list_reparacao:
+    lista_interv_html = ""
+    for interv in rep["intervencoes"]:
+        lista_interv_html += f"<li>{interv["codigo"]}: {interv["nome"]} - {interv["descricao"]}</li>"
+
+    html_rep = f"""
+    <html>
+        <head><title>Reparação {rep["nif"]}</title><meta charset="utf-8"/></head>
+        <body>
+            <h1>Detalhe da Reparação</h1>
+            <p>Cliente: {rep["nome"]} (NIF: {rep["nif"]})</p>
+            <p>Data: {rep["data"]}</p>
+            <p>Viatura:{rep["viatura"]["marca"]} {rep["viatura"]["modelo"]} ({rep["viatura"]["matricula"]})</p>
+            <hr/>
+            <h3>Intervenções Realizadas ({rep['nr_intervencoes']})</h3>
+            <ul>
+                {lista_interv_html}
+            </ul>
+            <address>[ <a href="lista_reparacoes.html">Voltar à lista</a> ]</address>
+        </body>
+    </html>
+    """
+    new_file(f"./output/reparacao_{rep['id_temp']}.html", html_rep)
+
+# --- pagina ind interv ---
+for codigo in intervencoes_globais:
+    dados_interv = intervencoes_globais[codigo]
+    
+    links_reps = ""
+    for rep in dados_interv["lista_reparacoes"]:
+        links_reps += f"<li><a href='reparacao_{rep['id_temp']}.html'>{rep['data']} - {rep['nome']} ({rep['viatura']['matricula']})</a></li>"
+
+    html_int_pag = f'''
+    <html>
+        <head><title>{dados_interv['nome']}</title><meta charset="utf-8"/></head>
+        <body>
+            <h1>{dados_interv['nome']} ({dados_interv['codigo']})</h1>
+            <p><b>Descrição:</b> {dados_interv['descricao']}</p>
+            <hr/>
+            <h3>Reparações onde foi realizada:</h3>
+            <ul>
+                {links_reps}
+            </ul>
+            <address>[ <a href="lista_intervencoes.html">Voltar à lista</a> ]</address>
+        </body>
+    </html>
+    '''
+    new_file(f"./output/intervencao_{codigo}.html", html_int_pag)
+
+# --- pagina indiv veiculo ---
+for chave in viaturas_globais:
+    dados_viat = viaturas_globais[chave]
+    nome_ficheiro = f"viatura_{dados_viat['marca']}_{dados_viat['modelo']}".replace(" ", "_")
+
+    links_reps = ""
+    for rep in dados_viat["lista_reparacoes"]:
+        links_reps += f"<li><a href='reparacao_{rep['id_temp']}.html'>{rep['data']} - {rep['nome']} ({rep['viatura']['matricula']})</a></li>"
+
+    html_viat_pag = f'''
+    <html>
+        <head><title>{dados_viat['marca']} {dados_viat['modelo']}</title><meta charset="utf-8"/></head>
+        <body>
+            <h1>{dados_viat['marca']} {dados_viat['modelo']}</h1>
+            <h3>Histórico de Reparações para este modelo:</h3>
+            <ul>
+                {links_reps}
+            </ul>
+            <address>[ <a href="lista_viaturas.html">Voltar à lista</a> ]</address>
+        </body>
+    </html>
+    '''
+    new_file(f"./output/{nome_ficheiro}.html", html_viat_pag)
