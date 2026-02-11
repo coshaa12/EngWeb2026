@@ -13,13 +13,15 @@
   ![Fotografia](fotografiaGitHub.jpeg)
 
 ## Resumo
-Para este trabalho desenvolvi o (`tpc2.py`), que serve para converter o dataset da oficina num website.
+Para este trabalho desenvolvi um servidor em Node.js (`tpc2.py`) que consome dados de uma API local e gera páginas web dinâmicas. 
 
-O programa começa por ler o (`dataset_reparacoes.json`) e processa a informação para não ficar tudo ao monte. Agrupei as coisas por Tipos de Intervenção e Modelos de carros usando estruturas auxiliares.
-
-No fim, o script cria a estrutura do site sozinha: página inicial, listas gerais e as páginas de detalhe para cada coisa. Dá para navegar entre as reparações e ver o histórico de cada carro.
+O processo funciona em duas partes: primeiro, utilizamos o (`json-server`) para simular uma API REST a partir do ficheiro (`dataset_reparacoes.json`) 
+O script responde a três rotas diferentes, processando os dados e ordenando-os alfabeticamente antes de gerar o HTML:
+/reparacoes - Tabela com a lista geral de todas as reparações.
+/intervencoes - Tabela com os diferentes tipos de intervenções, sem repetições e com a contagem de vezes que foram realizadas.
+/viaturas - Tabela com os modelos de carros reparados, agrupados por marca/modelo e com a respetiva contagem.
 
 ## Lista de Resultados
-* [tpc2.py](tpc1.py): O script gerador.
-* [dataset_reparacoes.json](dataset_reparacoes.json): O input de dados.
+* [tpc2.js](tpc2.js): O servidor aplicacional Node.js.
+* [dataset_reparacoes.json](dataset_reparacoes.json): O dataset servido pelo json-server.
 
