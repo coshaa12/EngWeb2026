@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .w3-card-4
+    header.w3-container.w3-purple
+      h2= emd ? "Editar Registo EMD" : "Novo Registo EMD"
+    
+    form.w3-container.w3-padding-16(method="POST" action=emd ? `/emd/${emd._id}` : "/emd")
+      fieldset
+        legend Identificação
+        label Nome Próprio
+        input.w3-input.w3-round(type="text" name="nome.primeiro" value=emd ? emd.nome.primeiro : "")
+        label Apelido
+        input.w3-input.w3-round(type="text" name="nome.último" value=emd ? emd.nome.último : "")
+        label Idade
+        input.w3-input.w3-round(type="number" name="idade" value=emd ? emd.idade : "")
+        label Género
+        input.w3-input.w3-round(type="text" name="género" value=emd ? emd.género : "")
+        
+      fieldset.w3-margin-top
+        legend Dados Técnicos
+        label Modalidade
+        input.w3-input.w3-round(type="text" name="modalidade" value=emd ? emd.modalidade : "")
+        label Clube
+        input.w3-input.w3-round(type="text" name="clube" value=emd ? emd.clube : "")
+        label Data (AAAA-MM-DD)
+        input.w3-input.w3-round(type="text" name="dataEMD" value=emd ? emd.dataEMD : "")
+        
+        label.w3-margin-top Resultado (Apto) 
+        input.w3-check(type="checkbox" name="resultado" checked=emd ? emd.resultado : false)
+      
+      button.w3-btn.w3-purple.w3-margin-top(type="submit") Guardar
+      a.w3-btn.w3-grey.w3-margin-top.w3-margin-left(href="/") Cancelar

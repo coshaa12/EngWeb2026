@@ -3,10 +3,16 @@ extends layout
 block content
   .w3-card-4
     header.w3-container.w3-teal
-      h1 Exame Medico
+      h1 Exames Médicos Desportivos 
+        a.w3-btn.w3-round.w3-grey.w3-margin-left(href="/emd/registo") + Novo Registo
     
+    .w3-container.w3-padding-16
+      a.w3-btn.w3-blue.w3-round.w3-margin-right(href="/emd?sort=dataEMD") Ordenar por Data (Decrescente)
+      a.w3-btn.w3-blue.w3-round(href="/emd?sort=nome") Ordenar por Nome (Crescente)
+      a.w3-btn.w3-purple.w3-round.w3-margin-left(href="/emd/stats") Estatísticas
+
     .w3-container
-      table.w3-table-all.w3-margin-top
+      table.w3-table-all
         tr
           th Nome
           th Data
@@ -20,4 +26,6 @@ block content
             td= e.modalidade
             td= e.resultado ? 'Apto' : 'Não Apto'
             td
-              a.w3-btn.w3-round.w3-blue-grey.w3-small(href=`/emd/${e._id}`) Ver Mais
+              a.w3-btn.w3-round.w3-blue-grey.w3-small(href=`/emd/${e._id}`) Ver
+              a.w3-btn.w3-round.w3-yellow.w3-small.w3-margin-left(href=`/emd/editar/${e._id}`) Editar
+              a.w3-btn.w3-round.w3-red.w3-small.w3-margin-left(href=`/emd/apagar/${e._id}`) Apagar
