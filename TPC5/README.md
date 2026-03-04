@@ -36,3 +36,12 @@
 3. Iniciar o servidor de dados: `npm run json-server` (ou `json-server --watch db.json`)
 4. Iniciar a aplicação web: `npm start` (ou `node server.js`)
 5. Aceder a `http://localhost:7777`
+
+## Lista de Resultados
+* [server.js](server.js): O servidor aplicacional Node.js principal desenvolvido com a framework Express.
+* [tratadb.js](tratadb.js): Script auxiliar responsável por ler o dataset original e gerar identificadores (`id`) para cada registo.
+* [db.json](db.json): O dataset processado e pronto a ser servido pelo `json-server`.
+* [cinema.json](cinema.json): O dataset original fornecido sem tratamento.
+* [views/](views/): Diretoria que contém todos os templates Pug (`layout.pug`, `filmes.pug`, `filme.pug`, `atores.pug`, `ator.pug`, `generos.pug`, `genero.pug`, `error.pug`).
+* [package.json](package.json): Ficheiro de configuração do projeto Node.js contendo as dependências e os scripts de execução.
+* [public/](public/): Diretoria para servir ficheiros estáticos (como folhas de estilo locais ou imagens, se aplicável).
