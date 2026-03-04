@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    .w3-card-4
+        header.w3-container.w3-teal
+            h1 Página do Género: #{genero}
+        
+        .w3-container
+            h3 Filmes deste género:
+            ul.w3-ul.w3-hoverable
+                each f in list
+                    li
+                        a(href=`/filmes/${f.id}`)= f.title + " (" + f.year + ")"
+                        
+        footer.w3-container.w3-teal.w3-margin-top
+            address
+                a(href="/generos") Voltar à lista de géneros
+            h5 Gerado por EngWeb2026 em #{d}

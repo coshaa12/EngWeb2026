@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    .w3-card-4
+        header.w3-container.w3-teal
+            h1 Filme: #{filme.title}
+        
+        .w3-container
+            ul.w3-ul.w3-card-4.w3-margin-top
+                li #[b ID:] #{filme.id}
+                li #[b Título:] #{filme.title}
+                li #[b Ano:] #{filme.year}
+                
+                li #[b Elenco:]
+                    ul
+                        if filme.cast && filme.cast.length > 0
+                            each ator in filme.cast
+                                li
+                                    a(href=`/atores/${ator}`)= ator
+                        else 
+                            li Sem elenco registado.
+                            
+                li #[b Géneros:]
+                    ul
+                        if filme.genres && filme.genres.length > 0
+                            each genero in filme.genres
+                                li
+                                    a(href=`/generos/${genero}`)= genero
+                        else 
+                            li Sem géneros registados.
+
+        footer.w3-container.w3-teal.w3-margin-top
+            address
+                a(href="/filmes") Voltar à lista
+            h5 Gerado por EngWeb2026 em #{d}
